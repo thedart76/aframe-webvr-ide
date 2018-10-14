@@ -5,26 +5,37 @@ AFRAME.registerComponent('log-code', {
 		this.el.addEventListener('text-changed', function () {
 			var textAnchor = document.querySelector('[text]');
 			var log = textAnchor.getAttribute('text').value;
-			console.log(log);
 		});
 	}
 });
 
 AFRAME.registerComponent('create-entity', {
 	init: function () {
-		var vrIDE = document.querySelector('#vr-ide');
-		var scene = document.querySelector('a-scene');
-
 		this.el.addEventListener('click', function () {
-			var wrapper = document.createElement('a-entity');
 			var textAnchor = document.querySelector('[text]');
 			var log = textAnchor.getAttribute('text').value;
-			console.log(log);
-			wrapper.innerHTML = log;
-			scene.appendChild(wrapper);
+      
+      if (log.startsWith('<a-')) {
+        log = generateEntity(log);
+      }
+
+      const script = document.createElement('script');
+      script.text = log;
+      document.head.appendChild(script).parentNode.removeChild(script);
+      
+      document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});
 	}
 });
+
+function generateEntity(value) {
+      value = value.replace(/\'/g, '"')
+                   .replace(/\n/g, '');
+      console.log(value)
+      return `var wrapper = document.createElement('a-entity');
+      wrapper.innerHTML = '${value}';
+      document.querySelector('a-scene').appendChild(wrapper);`;
+}
 
 // TEXTAREA component by Brian Peiris
 // GitHub repo: https://github.com/brianpeiris/aframe-textarea-component

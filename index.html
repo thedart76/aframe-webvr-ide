@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>A-Frame VR IDE</title>
+	<title>A-Frame VR IDE</title>
     <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js" defer></script>
     <script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide.js"></script>
@@ -22,16 +22,14 @@
     <a-entity id="vr-ide-wrapper" position="0 1.5 -1.5" log-code>
 	<!-- VR IDE -->
 	<a-entity id="vr-ide" scale="2 2 1"
-		  textarea>
+			  textarea>
 	</a-entity>
 	<!-- CREATE BUTTON -->
 	<a-entity create-entity
-		  geometry="primitive: plane; width: 0.5; height: 0.2"
-		  material="color: #AA0000"
-		  text="value: CREATE;
-			align: center;
-			width: 2"
-		  position="0 -0.5 0.1">
+			  geometry="primitive: plane; width: 0.5; height: 0.2"
+			  material="color: #AA0000"
+			  text="value: CREATE; align: center; width: 2"
+			  position="0 -0.5 0.1">
 	</a-entity>
     </a-entity>
 		
@@ -40,7 +38,7 @@
 
     <!-- CAMERA -->
     <a-camera>
-	<a-cursor></a-cursor>
+		<a-cursor></a-cursor>
     </a-camera>
 		
     <!-- GROUND -->

@@ -44,6 +44,12 @@ Let's see what the future brings!
 	    <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js" defer></script>
 	    <script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide.js"></script>
 	</head>
+	
+------------
+
+👀 **[VIEW THE DEMO SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/index.html "VIEW THE DEMO SOURCE CODE")**
+
+👀 **[VIEW THE COMPONENT SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/js/aframe-webvr-ide.js "VIEW THE COMPONENT SOURCE CODE")**
 
 ------------
 

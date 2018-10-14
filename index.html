@@ -2,49 +2,47 @@
 <html>
 <head>
 	<title>A-Frame VR IDE</title>
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js" defer></script>
-    <script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide.js"></script>
+	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+	<script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js" defer></script>
+	<script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide.js"></script>
 </head>
 
 <body>
-    <a-scene background="color: #FFFFFF" antialias="true">
-	
-    <!-- **************** EXAMPLE ****************
+	<a-scene background="color: #FFFFFF" antialias="true">
+
+	<!-- **************** EXAMPLE ****************
     1) Click on the grey textarea in the scene and type some code.
     For example:
     <a-box color="#FFAA00" position="1 2 -8"></a-box>
     
     2) Click on the CREATE button to create the entity
     ********************************************** -->
-		
-    <!-- VR IDE WRAPPER -->
-    <a-entity id="vr-ide-wrapper" position="0 1.5 -1.5" log-code>
-	<!-- VR IDE -->
-	<a-entity id="vr-ide" scale="2 2 1"
-			  textarea>
-	</a-entity>
-	<!-- CREATE BUTTON -->
-	<a-entity create-entity
-			  geometry="primitive: plane; width: 0.5; height: 0.2"
-			  material="color: #AA0000"
-			  text="value: CREATE; align: center; width: 2"
-			  position="0 -0.5 0.1">
-	</a-entity>
-    </a-entity>
-		
-    <!-- MULTI-USER SIMBOL ENTITY | Temporarily Commented as WIP -->
-    <!-- <a-simbol hand="right" virtualpersona="{'signIn': false}"></a-simbol> -->
 
-    <!-- CAMERA -->
-    <a-camera>
-		<a-cursor></a-cursor>
-    </a-camera>
-		
-    <!-- GROUND -->
-    <a-plane color="#DDDDDD" shader="flat" rotation="-90 0 0" scale="16 16 1">
-    </a-plane>
-</a-scene>
+		<!-- VR IDE WRAPPER -->
+		<a-entity id="vr-ide-wrapper" position="0 1.5 -1.5" log-code>
+			<!-- VR IDE -->
+			<a-entity id="vr-ide" scale="2 2 1" textarea>
+			</a-entity>
+			<!-- CREATE BUTTON -->
+			<a-entity create-entity
+					  geometry="primitive: plane; width: 0.5; height: 0.2"
+					  material="color: #AA0000" text="value: CREATE; align: center; width: 2" 
+					  position="0 -0.5 0.1">
+			</a-entity>
+		</a-entity>
 
+		<!-- MULTI-USER SIMBOL ENTITY | Temporarily Commented as WIP -->
+		<!-- <a-simbol hand="right" virtualpersona="{'signIn': false}"></a-simbol> -->
+
+		<!-- CAMERA -->
+		<a-camera>
+			<a-cursor></a-cursor>
+		</a-camera>
+
+		<!-- GROUND -->
+		<a-plane color="#DDDDDD" shader="flat" rotation="-90 0 0" scale="16 16 1">
+		</a-plane>
+	
+	</a-scene>
 </body>
 </html>

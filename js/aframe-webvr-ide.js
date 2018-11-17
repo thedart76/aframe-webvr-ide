@@ -1,29 +1,59 @@
-AFRAME.registerComponent('log-code', {
+/*
+AFRAME.registerComponent('typed-code', {
 	init: function () {
 		var vrIDE = document.querySelector('#vr-ide');
 
 		this.el.addEventListener('text-changed', function () {
 			var textAnchor = document.querySelector('[text]');
-			var log = textAnchor.getAttribute('text').value;
+			var typedCode = textAnchor.getAttribute('text').value;
+			console.log(typedCode);
+		});
+	}
+});
+*/
+
+var geometryType;
+
+AFRAME.registerComponent('compose-code', {	
+	init: function () {
+		var textAnchor = document.querySelector('[text]');
+		var selectedPrimitive = this.el.getAttribute('geometry').primitive;
+		
+		this.el.addEventListener('Simbol.selected', function () {
+			textAnchor.setAttribute('text', {value: '<a-' + selectedPrimitive + '></a-' + selectedPrimitive + '>'});
+			
+			geometryType = selectedPrimitive;
+		});
+	}
+});
+
+AFRAME.registerComponent('compose-color', {
+	init: function () {
+		var textAnchor = document.querySelector('[text]');
+		var selectedColor = this.el.getAttribute('material').color;
+		
+		this.el.addEventListener('Simbol.selected', function () {
+			console.log(selectedColor);
+			textAnchor.setAttribute('text', {value: '<a-' + geometryType + ' color="' + selectedColor + '"></a-' + geometryType + '>'});
 		});
 	}
 });
 
 AFRAME.registerComponent('create-entity', {
 	init: function () {
-		this.el.addEventListener('click', function () {
+		this.el.addEventListener('Simbol.selected', function () {
 			var textAnchor = document.querySelector('[text]');
-			var log = textAnchor.getAttribute('text').value;
-      
-      if (log.startsWith('<a-')) {
-        log = generateEntity(log);
-      }
-
-      const script = document.createElement('script');
-      script.text = log;
-      document.head.appendChild(script).parentNode.removeChild(script);
-      
-      document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
+			var typedCode = textAnchor.getAttribute('text').value;
+			
+			if (typedCode.startsWith('<a-')) {
+				typedCode = generateEntity(typedCode);
+			}
+			
+			const script = document.createElement('script');
+			script.text = typedCode;
+			
+			document.head.appendChild(script).parentNode.removeChild(script);
+			document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});
 	}
 });
@@ -37,6 +67,21 @@ function generateEntity(value) {
       document.querySelector('a-scene').appendChild(wrapper);`;
 }
 
+AFRAME.registerComponent('delete-entity', {
+	init: function () {
+		this.el.addEventListener('Simbol.selected', function () {
+			var textAnchor = document.querySelector('[text]');
+			var typedCode = textAnchor.getAttribute('text').value;
+			var elToBeDeleted = document.querySelector(typedCode);
+			var elToBeDeletedID = '#' + elToBeDeleted.getAttribute('id');
+//			console.log(elToBeDeletedID);
+			
+			elToBeDeleted.parentNode.removeChild(elToBeDeleted);
+      document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
+		});
+	}
+});
+
 // TEXTAREA component by Brian Peiris
 // GitHub repo: https://github.com/brianpeiris/aframe-textarea-component
 // Part of the code has been/will be edited
@@ -46,6 +91,7 @@ AFRAME.registerComponent('textarea', {
 		rows: {type: 'number', default: 8},
 		wrap: {type: 'number', default: 50},
 		color: {type: 'color', default: '#FFFFFF'},
+		opacity: {type: 'number', default: 0.8},
 		backgroundColor: {type: 'color', default: '#212121'},
 		disabledBackgroundColor: {type: 'color', default: 'lightgrey'},
 		disabled: {type: 'boolean', default: false},
@@ -65,8 +111,12 @@ AFRAME.registerComponent('textarea', {
 		};
 
 		this.background = document.createElement('a-plane');
-		this.background.setAttribute('color', this.data.disabled ? this.data.disabledBackgroundColor : this.data.backgroundColor);
-		this.background.setAttribute('opacity', 0.8);
+		this.background.setAttribute('material', {
+			color: this.data.disabled ? this.data.disabledBackgroundColor : this.data.backgroundColor,
+			opacity: this.data.opacity,
+			shader: 'flat',
+			side: 'double'
+		});
 		this.el.appendChild(this.background);
 
 		this.textAnchor = document.createElement('a-entity');
@@ -100,6 +150,8 @@ AFRAME.registerComponent('textarea', {
 		this.el.addEventListener('origin-changed', this._updateCursorGeometry.bind(this));
 		this.el.addEventListener('origin-changed', this._updateDisplayText.bind(this));
 		this.el.addEventListener('click', this.focus.bind(this));
+    this.el.addEventListener('Simbol.selected', this.focus.bind(this));
+    this.el.addEventListener('Simbol.unselected', this.unfocus.bind(this));
 	},
 	update: function (oldData) {
 		if (this.data.text !== oldData.text) {
@@ -118,8 +170,26 @@ AFRAME.registerComponent('textarea', {
 		}
 	},
 	focus: function () {
+    const simbolEl = document.querySelector('a-simbol');
+    if (simbolEl) {
+      const simbolComponent = simbolEl.components.simbol;
+      if (simbolComponent) {
+         const simbol = simbolComponent.simbol;
+         simbol.locomotion.disableTranslation();
+      }
+    }
 		this.textarea.focus();
 	},
+  unfocus: function() {
+    const simbolEl = document.querySelector('a-simbol');
+    if (simbolEl) {
+      const simbolComponent = simbolEl.components.simbol;
+      if (simbolComponent) {
+         const simbol = simbolComponent.simbol;
+         simbol.locomotion.enableTranslation();
+      }
+    }
+  },
 	_initTextarea: function () {
 		this.textarea = document.createElement('textarea');
 		document.body.appendChild(this.textarea);

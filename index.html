@@ -9,40 +9,90 @@
 
 <body>
 	<a-scene background="color: #FFFFFF" antialias="true">
+		<a-assets>
+			<a-mixin id="ui"
+					 geometry="primitive: plane; width: 0.66; height: 0.12">
+			</a-mixin>
+		</a-assets>
 
-	<!-- **************** EXAMPLE ****************
+	<!-- **************** EXAMPLE FOR DESKTOP MODE ****************
     1) Click on the grey textarea in the scene and type some code.
     For example:
     <a-box color="#FFAA00" position="1 2 -8"></a-box>
     
     2) Click on the CREATE button to create the entity
-    ********************************************** -->
+    *********************************************************** -->
 
 		<!-- VR IDE WRAPPER -->
-		<a-entity id="vr-ide-wrapper" position="0 1.5 -1.5" log-code>
+		<a-entity id="vr-ide-wrapper" position="0 0.9 -1.5" rotation="0 0 0" typed-code>
 			<!-- VR IDE -->
-			<a-entity id="vr-ide" scale="2 2 1" textarea>
+			<a-entity id="vr-ide" scale="1.9 1.9 1" textarea simbol-selectable>
 			</a-entity>
-			<!-- CREATE BUTTON -->
-			<a-entity create-entity
-					  geometry="primitive: plane; width: 0.5; height: 0.2"
-					  material="color: #AA0000" text="value: CREATE; align: center; width: 2" 
-					  position="0 -0.5 0.1">
+			<!-- CREATE ENTITY BUTTON -->
+			<a-entity id="create-entity" create-entity simbol-selectable
+					  geometry="primitive: plane; width: 2; height: 0.12"
+					  material="color: #009900; shader: flat; opacity: 0.8; side: double"
+					  text="value: CREATE; align: center; width: 1.4"
+					  position="0 0.75 0">
+			</a-entity>
+			<!-- BOX -->
+			<a-box color="#999999" scale="0.15 0.15 0.15" position="-0.75 0.56 0"
+				   compose-code simbol-selectable>
+			</a-box>
+			<!-- SPHERE -->
+			<a-sphere color="#999999" scale="0.09 0.09 0.09" position="-0.5 0.56 0"
+					  compose-code simbol-selectable>
+			</a-sphere>
+			<!-- CONE -->
+			<a-cone color="#999999" scale="0.13 0.13 0.13" position="-0.25 0.56 0"
+					compose-code simbol-selectable>
+			</a-cone>
+			<!-- RED -->
+			<a-plane color="#AA0000" scale="0.15 0.15 0.15" position="0.25 0.56 0"
+					 compose-color simbol-selectable>
+			</a-plane>
+			<!-- YELLOW -->
+			<a-plane color="#FFAA00" scale="0.15 0.15 0.15" position="0.5 0.56 0"
+					 compose-color simbol-selectable>
+			</a-plane>
+			<!-- BLUE -->
+			<a-plane color="#0077FF" scale="0.15 0.15 0.15" position="0.75 0.56 0"
+					 compose-color simbol-selectable>
+			</a-plane>
+			<!-- DELETE ENTITY BUTTON -->
+			<a-entity mixin="ui" id="delete-entity" delete-entity simbol-selectable
+					  material="color: #212121; shader: flat; opacity: 0.8; side: double"
+					  text="value: DELETE; align: center; width: 1.2"
+					  position="-0.67 0.385 0">
+			</a-entity>
+			<!-- MOVE ENTITY BUTTON -->
+			<a-entity mixin="ui yellow" id="move-entity" move-entity simbol-selectable
+					  material="color: #212121; shader: flat; opacity: 0.8; side: double"
+					  text="value: MOVE; align: center; width: 1.2"
+					  position="0 0.385 0">
+			</a-entity>
+			<!-- RESET SCENE BUTTON -->
+			<a-entity mixin="ui blue" id="reset-scene" reset-scene simbol-selectable
+					  material="color: #212121; shader: flat; opacity: 0.8; side: double"
+					  text="value: RESET SCENE; align: center; width: 1.2"
+					  position="0.67 0.385 0">
 			</a-entity>
 		</a-entity>
 
-		<!-- MULTI-USER SIMBOL ENTITY | Temporarily Commented as WIP -->
-		<!-- <a-simbol hand="right" virtualpersona="{'signIn': false}"></a-simbol> -->
-
-		<!-- CAMERA -->
-		<a-camera>
-			<a-cursor></a-cursor>
-		</a-camera>
+		<!-- MULTI-USER SIMBOL ENTITY -->
+		<a-simbol hand="right" virtualpersona="{'signIn': false}"></a-simbol>
+		
+		<!-- Camera
+		<a-entity>
+			<a-camera>
+				<a-cursor></a-cursor>
+			</a-camera>
+		</a-entity> -->
 
 		<!-- GROUND -->
 		<a-plane color="#DDDDDD" shader="flat" rotation="-90 0 0" scale="16 16 1">
 		</a-plane>
-	
 	</a-scene>
+
 </body>
 </html>

@@ -26,10 +26,13 @@ To us, it sounds like a cool way for early adopters or even more experienced use
 
 Let's see what the future brings!
 
-
 ------------
 
 🖥 [TRY THE DEMO](https://thedart76.github.io/aframe-webvr-ide/ "TRY THE DEMO")
+
+------------
+
+⚠ Please bear in mind that the code for this project is still currently WIP.
 
 ------------
 
@@ -50,7 +53,3 @@ Let's see what the future brings!
 👀 **[VIEW THE DEMO SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/index.html "VIEW THE DEMO SOURCE CODE")**
 
 👀 **[VIEW THE COMPONENT SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/js/aframe-webvr-ide.js "VIEW THE COMPONENT SOURCE CODE")**
-
-------------
-
-⚠ Please bear in mind that the code for this project is still currently WIP.

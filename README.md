@@ -1,7 +1,7 @@
 # aframe-webvr-ide
 A social WebVR experience using Simbol to introduce your friends to basic WebVR concepts and features.
 
-[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)
+[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-v2.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-v2.gif)
 
 ## Introduction
 When I discovered the A-[Frame textarea component](https://github.com/brianpeiris/aframe-textarea-component "Frame textarea component") created by [Brian Peiris](https://github.com/brianpeiris "Brian Peiris") a few months ago, I thought: “I would be cool to use it as a starting point to create kind of WebVR IDE!”.

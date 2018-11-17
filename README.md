@@ -53,3 +53,11 @@ Let's see what the future brings!
 👀 **[VIEW THE DEMO SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/index.html "VIEW THE DEMO SOURCE CODE")**
 
 👀 **[VIEW THE COMPONENT SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/js/aframe-webvr-ide.js "VIEW THE COMPONENT SOURCE CODE")**
+
+------------
+
+## Previous Versions
+
+### v1.0
+
+[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)

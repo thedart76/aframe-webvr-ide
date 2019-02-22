@@ -1,26 +1,75 @@
-/*
+var geometryType;
+
 AFRAME.registerComponent('typed-code', {
 	init: function () {
-		var vrIDE = document.querySelector('#vr-ide');
+		var textAnchor = document.querySelector('[textarea]');
+		this.el.sceneEl.addEventListener('Simbol.loaded', () => {
+			const simbol = document.querySelector('a-simbol').components.simbol.simbol;
+			simbol.virtualPersona.position.set(0, 0, 9);
+			textAnchor.components.textarea.textarea.value = '';
+		});
 
-		this.el.addEventListener('text-changed', function () {
-			var textAnchor = document.querySelector('[text]');
-			var typedCode = textAnchor.getAttribute('text').value;
-			console.log(typedCode);
+		this.el.addEventListener('createEntity', (event) => {
+			this.sceneEl = this.sceneEl || this.el.querySelector('[idescene]');
+			this.sceneEl.emit('createEntity', event.detail, false);
 		});
 	}
 });
-*/
 
-var geometryType;
+AFRAME.registerComponent('idescene', {
+
+	init: function () {
+		this.simbolObjects = {};
+		this.oldSimbolObjects = {};
+		this.el.sceneEl.addEventListener('Simbol.loaded', () => {
+			this.simbol = document.querySelector('a-simbol').components.simbol.simbol;
+			this.el.addEventListener('createEntity', (event) => {
+				const object = event.detail;
+				if (!object.id) {
+					object.id = `ide-scene-${Object.keys(this.simbolObjects).length}`;
+				}
+				this.simbolObjects[object.id] = object;
+			});
+		});
+	},
+
+	tick: function() {
+		if (!this.simbolObjects) {
+			return;
+		}
+
+		for (const object of Object.values(this.oldSimbolObjects)) {
+			if (!this.simbolObjects[object.id]) {
+				this.el.removeChild(this.el.querySelector(`#${object.id}`));
+			}
+		}
+
+		for (const object of Object.values(this.simbolObjects)) {
+			if (!this.oldSimbolObjects[object.id]) {
+				const element = document.createElement(object.primitive);
+				for (const attr of object.attributes) {
+					if (attr && attr.name) {
+						element.setAttribute(attr.name, attr.value);
+					}
+				}
+				element.id = object.id;
+				this.el.appendChild(element);
+			} else if (!this.el.querySelector(`#${object.id}`)) {
+				delete this.simbolObjects[object.id];
+			}
+		}
+
+		this.oldSimbolObjects = Object.assign({}, this.simbolObjects);
+	}
+});
 
 AFRAME.registerComponent('compose-code', {	
 	init: function () {
-		var textAnchor = document.querySelector('[text]');
+		var textAnchor = document.querySelector('[textarea]');
 		var selectedPrimitive = this.el.getAttribute('geometry').primitive;
 		
 		this.el.addEventListener('Simbol.selected', function () {
-			textAnchor.setAttribute('text', {value: '<a-' + selectedPrimitive + '></a-' + selectedPrimitive + '>'});
+			textAnchor.components.textarea.textarea.value = '<a-' + selectedPrimitive + '></a-' + selectedPrimitive + '>';
 			
 			geometryType = selectedPrimitive;
 		});
@@ -29,12 +78,12 @@ AFRAME.registerComponent('compose-code', {
 
 AFRAME.registerComponent('compose-color', {
 	init: function () {
-		var textAnchor = document.querySelector('[text]');
+		var textAnchor = document.querySelector('[textarea]');
 		var selectedColor = this.el.getAttribute('material').color;
-		
+
 		this.el.addEventListener('Simbol.selected', function () {
 			console.log(selectedColor);
-			textAnchor.setAttribute('text', {value: '<a-' + geometryType + ' color="' + selectedColor + '"></a-' + geometryType + '>'});
+			textAnchor.components.textarea.textarea.value = '<a-' + geometryType + ' color="' + selectedColor + '"></a-' + geometryType + '>';
 		});
 	}
 });
@@ -44,27 +93,39 @@ AFRAME.registerComponent('create-entity', {
 		this.el.addEventListener('Simbol.selected', function () {
 			var textAnchor = document.querySelector('[text]');
 			var typedCode = textAnchor.getAttribute('text').value;
-			
+
 			if (typedCode.startsWith('<a-')) {
-				typedCode = generateEntity(typedCode);
+				this.emit('createEntity', generateEntity(typedCode));
+			} else {
+				const script = document.createElement('script');
+				script.text = typedCode;
+				document.head.appendChild(script).parentNode.removeChild(script);
 			}
-			
-			const script = document.createElement('script');
-			script.text = typedCode;
-			
-			document.head.appendChild(script).parentNode.removeChild(script);
+
 			document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});
 	}
 });
 
 function generateEntity(value) {
-      value = value.replace(/\'/g, '"')
-                   .replace(/\n/g, '');
-      console.log(value)
-      return `var wrapper = document.createElement('a-entity');
-      wrapper.innerHTML = '${value}';
-      document.querySelector('a-scene').appendChild(wrapper);`;
+	value = value.replace(/\'/g, '"')
+				.replace(/\n/g, '');
+
+	var wrapper = document.createElement('a-entity');
+	wrapper.innerHTML = value;
+	var element = wrapper.firstChild;
+	const attributes = [...element.attributes].map((attr) => {
+		return {
+			name: attr.name,
+			value: attr.value
+		}
+	});
+	return {
+		id: element.id,
+		primitive: element.tagName,
+		value: element.innerHTML,
+		attributes
+	};
 }
 
 AFRAME.registerComponent('delete-entity', {
@@ -75,9 +136,9 @@ AFRAME.registerComponent('delete-entity', {
 			var elToBeDeleted = document.querySelector(typedCode);
 			var elToBeDeletedID = '#' + elToBeDeleted.getAttribute('id');
 //			console.log(elToBeDeletedID);
-			
+
 			elToBeDeleted.parentNode.removeChild(elToBeDeleted);
-      document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
+      		document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});
 	}
 });

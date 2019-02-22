@@ -3,31 +3,36 @@
 <head>
 	<title>A-Frame VR IDE</title>
 	<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-	<script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script>
-	<script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide-v2.0.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/wearesimbol/a-simbol@v1.6.0/build/a-simbol.js"></script>
+	<script src="js/aframe-webvr-ide-v2.0.js"></script>
 </head>
 
 <body>
-	<a-scene background="color: #FFFFFF" antialias="true">
+    <a-scene background="color: #FFFFFF" antialias="true">
 		<a-assets>
 			<a-mixin id="ui"
 					 geometry="primitive: plane; width: 0.66; height: 0.12">
 			</a-mixin>
 		</a-assets>
+		
+		<!-- **************** EXAMPLE ****************
+		1) Click on the grey textarea in the scene and type some code.
+    	 For example:
+    	 <a-box id="yellow" color="#FFAA00" position="1 2 -3"></a-box>
 
-	<!-- **************** EXAMPLE FOR DESKTOP MODE ****************
-    1) Click on the grey textarea in the scene and type some code.
-    For example:
-    <a-box color="#FFAA00" position="1 2 -8"></a-box>
-    
-    2) Click on the CREATE button to create the entity
-    *********************************************************** -->
+    	2) Click on the CREATE button to create the entity
 
+		3) Type #yellow
+
+		4) Click on the DELETE button to delete the entity
+    	********************************************** -->
+		
 		<!-- VR IDE WRAPPER -->
-		<a-entity id="vr-ide-wrapper" position="0 0.9 -1.5" rotation="0 0 0" typed-code>
+		<a-entity id="vr-ide-wrapper" position="0 0 8" rotation="0 0 0" typed-code>
 			<!-- VR IDE -->
-			<a-entity id="vr-ide" scale="1.9 1.9 1" textarea simbol-selectable>
+			<a-entity id="vr-ide" scale="1.9 1.9 1" textarea simbol-selectable simbol-networked="animatedvalues:el.components.textarea.textarea.value">
 			</a-entity>
+			<a-entity id="vr-ide-scene" position="0 0 -8" idescene simbol-networked="animatedvalues:el.components.idescene.simbolObjects"></a-entity>
 			<!-- CREATE ENTITY BUTTON -->
 			<a-entity id="create-entity" create-entity simbol-selectable
 					  geometry="primitive: plane; width: 2; height: 0.12"
@@ -81,13 +86,6 @@
 
 		<!-- MULTI-USER SIMBOL ENTITY -->
 		<a-simbol hand="right" virtualpersona="{'signIn': false}"></a-simbol>
-		
-		<!-- Camera
-		<a-entity>
-			<a-camera>
-				<a-cursor></a-cursor>
-			</a-camera>
-		</a-entity> -->
 
 		<!-- GROUND -->
 		<a-plane color="#DDDDDD" shader="flat" rotation="-90 0 0" scale="16 16 1">

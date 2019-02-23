@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>A-Frame VR IDE VR-MODE v1-3</title>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/gh/wearesimbol/a-simbol@v1.6.0/build/a-simbol.js"></script>-->
-    <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script>
-	<script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide-v1-3-05.js"></script>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/wearesimbol/a-simbol@v1.6.0/build/a-simbol.js"></script>
+    <!-- <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script> -->
+	<script src="js/aframe-webvr-ide-v1-3-05.js"></script>
 </head>
 
 <body>
@@ -37,11 +37,11 @@
         </a-entity>
         
 		<!-- VR IDE WRAPPER -->
+		<a-entity id="vr-ide-scene" idescene position="0 0 0" simbol-networked="animatedvalues:el.components.idescene.simbolObjects"></a-entity>
 		<a-entity id="vr-ide-wrapper" position="0 1 8.4" rotation="-30 0 0" typed-code>
 			<!-- VR IDE -->
 			<a-entity id="vr-ide" scale="0.8 0.8 1" textarea simbol-selectable simbol-networked="animatedvalues:el.components.textarea.textarea.value">
 			</a-entity>
-			<a-entity id="vr-ide-scene" idescene position="0 0 -8.4" simbol-networked="animatedvalues:el.components.idescene.simbolObjects"></a-entity>
 			<!-- CREATE ENTITY BUTTON -->
 			<a-entity id="create-entity" create-entity simbol-selectable visual-feedback
 					  geometry="primitive: plane; width: 0.15; height: 0.05"

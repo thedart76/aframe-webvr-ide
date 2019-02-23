@@ -7,11 +7,13 @@ AFRAME.registerComponent('idescene', {
 		this.oldSimbolObjects = {};
 		this.el.sceneEl.addEventListener('Simbol.loaded', () => {
 			this.simbol = document.querySelector('a-simbol').components.simbol.simbol;
+			console.log(this.el)
 			this.el.addEventListener('createEntity', (event) => {
 				const object = event.detail;
 				if (!object.id) {
 					object.id = `ide-scene-${Object.keys(this.simbolObjects).length}`;
 				}
+				console.log(object)
 				this.simbolObjects[object.id] = object;
 			});
 		});
@@ -54,11 +56,6 @@ AFRAME.registerComponent('typed-code', {
 			const simbol = document.querySelector('a-simbol').components.simbol.simbol;
 			simbol.virtualPersona.position.set(0, 0, 9);
 			textAnchor.components.textarea.textarea.value = '';
-		});
-
-		this.el.addEventListener('createEntity', (event) => {
-			this.sceneEl = this.sceneEl || this.el.querySelector('[idescene]');
-			this.sceneEl.emit('createEntity', event.detail, false);
 		});
 	}
 });
@@ -138,68 +135,71 @@ AFRAME.registerComponent('follow', {
 var toDelete = 1;
 
 // THIS COMPONENT CREATES OBJECTS BUT THEY ARE NOT VISIBLE TO OTHER USERS
+// AFRAME.registerComponent('create-entity', {
+// 	init: function () {
+// 		var vrIDE = document.querySelector('#vr-ide');
+//         var scene = document.querySelector('a-scene');
+        
+// 		this.el.addEventListener('Simbol.selected', function () {
+//             var typedCode = vrIDE.components.textarea.textarea.value;
+//             var wrapper = document.createElement('a-entity');
+            
+// 			wrapper.setAttribute('class', 'created');
+//             wrapper.setAttribute('id', 'entity' + toDelete);
+//             wrapper.setAttribute('simbol-selectable', '');
+//             wrapper.setAttribute('show-object-code', '');
+//             wrapper.innerHTML = typedCode;
+// 			scene.appendChild(wrapper);
+//             vrIDE.components.textarea.textarea.value = '';
+//             toDelete++;
+//             console.log(toDelete);
+// 		});
+// 	}
+// });
+
+// THIS COMPONENT DOES NOT CREATE OBJECTS BUT THE TYPED CODE IS VISIBLE TO OTHER USERS
 AFRAME.registerComponent('create-entity', {
 	init: function () {
-		var vrIDE = document.querySelector('#vr-ide');
-        var scene = document.querySelector('a-scene');
-        
+			
 		this.el.addEventListener('Simbol.selected', function () {
-            var typedCode = vrIDE.components.textarea.textarea.value;
-            var wrapper = document.createElement('a-entity');
-            
-			wrapper.setAttribute('class', 'created');
-            wrapper.setAttribute('id', 'entity' + toDelete);
-            wrapper.setAttribute('simbol-selectable', '');
-            wrapper.setAttribute('show-object-code', '');
-            wrapper.innerHTML = typedCode;
-			scene.appendChild(wrapper);
-            vrIDE.components.textarea.textarea.value = '';
-            toDelete++;
-            console.log(toDelete);
+           var vrIDE = document.querySelector('#vr-ide');
+			var typedCode = vrIDE.components.textarea.textarea.value;
+
+			if (typedCode.startsWith('<a-')) {		
+				this.objectsWrapper = document.querySelector('[idescene]');
+				
+				this.objectsWrapper.emit('createEntity', generateEntity(typedCode), false);
+			} else {
+				const script = document.createElement('script');
+				script.text = typedCode;
+				document.head.appendChild(script).parentNode.removeChild(script);
+			}
+
+			document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});
 	}
 });
 
-// THIS COMPONENT DOES NOT CREATE OBJECTS BUT THE TYPED CODE IS VISIBLE TO OTHER USERS
-//AFRAME.registerComponent('create-entity', {
-//	init: function () {
-//		this.el.addEventListener('Simbol.selected', function () {
-//            var vrIDE = document.querySelector('#vr-ide');
-//			var typedCode = vrIDE.components.textarea.textarea.value;
-//
-//			if (typedCode.startsWith('<a-')) {
-//				this.emit('createEntity', generateEntity(typedCode));
-//			} else {
-//				const script = document.createElement('script');
-//				script.text = typedCode;
-//				document.head.appendChild(script).parentNode.removeChild(script);
-//			}
-//
-//			document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
-//		});
-//	}
-//});
-//
-//function generateEntity(value) {
-//	value = value.replace(/\'/g, '"')
-//				.replace(/\n/g, '');
-//
-//	var wrapper = document.createElement('a-entity');
-//	wrapper.innerHTML = value;
-//	var element = wrapper.firstChild;
-//	const attributes = [...element.attributes].map((attr) => {
-//		return {
-//			name: attr.name,
-//			value: attr.value
-//		}
-//	});
-//	return {
-//		id: element.id,
-//		primitive: element.tagName,
-//		value: element.innerHTML,
-//		attributes
-//	};
-//}
+function generateEntity(value) {
+	value = value.replace(/\'/g, '"')
+				.replace(/\n/g, '');
+
+	var wrapper = document.createElement('a-entity');
+	wrapper.innerHTML = value;
+	var element = wrapper.firstChild;
+	const attributes = [...element.attributes].map((attr) => {
+		return {
+			name: attr.name,
+			value: attr.value
+		}
+	});
+	return {
+		id: element.id,
+		primitive: element.tagName,
+		value: element.innerHTML,
+		attributes
+	};
+}
 
 AFRAME.registerComponent('remove-entity', {
 	init: function () {

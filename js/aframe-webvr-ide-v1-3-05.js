@@ -161,11 +161,11 @@ AFRAME.registerComponent('create-entity', {
 });
 
 // THIS COMPONENT DOES NOT CREATE OBJECTS BUT THE TYPED CODE IS VISIBLE TO OTHER USERS
-//AFRAME.registerComponent('create-entity',
+//AFRAME.registerComponent('create-entity', {
 //	init: function () {
 //		this.el.addEventListener('Simbol.selected', function () {
-//			var textAnchor = document.querySelector('[textarea]');
-//			var typedCode = textAnchor.getAttribute('text').value;
+//			var codeToDisplay = document.querySelector('#code-to-display');
+//            var typedCode = codeToDisplay.getAttribute('text').value;
 //
 //			if (typedCode.startsWith('<a-')) {
 //				this.emit('createEntity', generateEntity(typedCode));

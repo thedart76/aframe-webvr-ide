@@ -7,13 +7,11 @@ AFRAME.registerComponent('idescene', {
 		this.oldSimbolObjects = {};
 		this.el.sceneEl.addEventListener('Simbol.loaded', () => {
 			this.simbol = document.querySelector('a-simbol').components.simbol.simbol;
-			console.log(this.el)
 			this.el.addEventListener('createEntity', (event) => {
 				const object = event.detail;
 				if (!object.id) {
 					object.id = `ide-scene-${Object.keys(this.simbolObjects).length}`;
 				}
-				console.log(object)
 				this.simbolObjects[object.id] = object;
 			});
 		});
@@ -39,8 +37,10 @@ AFRAME.registerComponent('idescene', {
 					}
 				}
 				element.id = object.id;
+				console.log(element)
 				this.el.appendChild(element);
 			} else if (!this.el.querySelector(`#${object.id}`)) {
+				console.log('delete', object)
 				delete this.simbolObjects[object.id];
 			}
 		}
@@ -76,9 +76,9 @@ AFRAME.registerComponent('show-object-code', {
         
         el.addEventListener('Simbol.selected', function () {
             personalDisplay.setAttribute('visible', 'true');
-            var myInnerHtml = el.innerHTML;
-            console.log(myInnerHtml);
-            var value = myInnerHtml.split('" ').join('"\n');
+            var myOuterHTML = el.outerHTML;
+            console.log(myOuterHTML);
+            var value = myOuterHTML.split('" ').join('"\n');
             personalDisplay.setAttribute('text', 'value', value);
             personalDisplay.setAttribute('simbol-selectable', '');
 		});
@@ -165,10 +165,10 @@ AFRAME.registerComponent('create-entity', {
            var vrIDE = document.querySelector('#vr-ide');
 			var typedCode = vrIDE.components.textarea.textarea.value;
 
-			if (typedCode.startsWith('<a-')) {		
+			if (typedCode.trim().startsWith('<a-')) {		
 				this.objectsWrapper = document.querySelector('[idescene]');
-				
 				this.objectsWrapper.emit('createEntity', generateEntity(typedCode), false);
+				toDelete++;
 			} else {
 				const script = document.createElement('script');
 				script.text = typedCode;
@@ -193,8 +193,16 @@ function generateEntity(value) {
 			value: attr.value
 		}
 	});
+	attributes.push({
+		name: 'simbol-selectable',
+		value: ''
+	});
+	attributes.push({
+		name: 'show-object-code',
+		value: ''
+	});
 	return {
-		id: element.id,
+		id: 'entity' + toDelete,
 		primitive: element.tagName,
 		value: element.innerHTML,
 		attributes
@@ -233,10 +241,10 @@ AFRAME.registerComponent('reset-scene', {
 	init: function () {
         
 		this.el.addEventListener('Simbol.selected', function () {
-            var allObjects = document.querySelectorAll('.created');
-            for (var i = 0; i < allObjects.length; i++) {
-                allObjects[i].parentNode.removeChild(allObjects[i]);
-            }
+			var idesceneEl = document.querySelector('[idescene]');
+			while (idesceneEl.hasChildNodes()) {
+				idesceneEl.removeChild(idesceneEl.lastChild);
+			}
 
       		document.body.querySelector('[textarea]').components.textarea.textarea.value = '';
 		});

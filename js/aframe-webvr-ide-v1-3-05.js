@@ -193,7 +193,7 @@ AFRAME.registerComponent('delete-entity', {
             var vrIDE = document.querySelector('#vr-ide');
 //			var textAnchor = document.querySelector('[text]');
 			var typedCode = vrIDE.components.textarea.textarea.value;
-			var elToBeDeleted = document.querySelector(typedCode);
+			var elToBeDeleted = document.querySelector(typedCode).parentNode;
 
 			elToBeDeleted.parentNode.removeChild(elToBeDeleted);
       		document.body.querySelector('[textarea]').components.textarea.textarea.value = '';

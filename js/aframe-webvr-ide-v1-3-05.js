@@ -164,8 +164,8 @@ AFRAME.registerComponent('create-entity', {
 //AFRAME.registerComponent('create-entity', {
 //	init: function () {
 //		this.el.addEventListener('Simbol.selected', function () {
-//			var codeToDisplay = document.querySelector('#code-to-display');
-//            var typedCode = codeToDisplay.getAttribute('text').value;
+//            var vrIDE = document.querySelector('#vr-ide');
+//			var typedCode = vrIDE.components.textarea.textarea.value;
 //
 //			if (typedCode.startsWith('<a-')) {
 //				this.emit('createEntity', generateEntity(typedCode));

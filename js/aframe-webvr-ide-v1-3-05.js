@@ -29,13 +29,11 @@ AFRAME.registerComponent('idescene', {
 		for (const object of Object.values(this.simbolObjects)) {
 			if (!this.oldSimbolObjects[object.id]) {
 				var wrapper = document.createElement('a-entity');
-				wrapper.setAttribute('id', 'entity' + toDelete);
-				object.wrapperId = wrapper.id;
+				wrapper.setAttribute('id', object.wrapperId);
 				wrapper.setAttribute('simbol-selectable', '');
 				wrapper.setAttribute('show-object-code', '');
 				wrapper.innerHTML = object.value;
 				this.el.appendChild(wrapper);
-				toDelete++;
 			} else if (!this.el.querySelector(`#${object.wrapperId}`)) {
 				delete this.simbolObjects[object.id];
 			}
@@ -140,6 +138,7 @@ AFRAME.registerComponent('create-entity', {
 			if (typedCode.trim().startsWith('<a-')) {		
 				this.objectsWrapper = document.querySelector('[idescene]');
 				this.objectsWrapper.emit('createEntity', generateEntity(typedCode), false);
+				toDelete++;
 			} else {
 				const script = document.createElement('script');
 				script.text = typedCode;
@@ -166,6 +165,7 @@ function generateEntity(value) {
 	});
 	return {
 		id: element.id,
+		wrapperId: 'entity' + toDelete,
 		primitive: element.tagName,
 		value,
 		innerHTML: element.innerHTML,
@@ -181,8 +181,8 @@ AFRAME.registerComponent('remove-entity', {
             var lastCreated = document.querySelector('#entity' + (toDelete - 1));
 
 			lastCreated.parentNode.removeChild(lastCreated);
-      		vrIDE.components.textarea.textarea.value = '';
-            toDelete -= 1;
+      vrIDE.components.textarea.textarea.value = '';
+      toDelete -= 1;
 		});
 	}
 });

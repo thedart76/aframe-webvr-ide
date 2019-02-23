@@ -1,5 +1,3 @@
-var geometryType;
-
 AFRAME.registerComponent('idescene', {
 
 	init: function () {
@@ -24,23 +22,21 @@ AFRAME.registerComponent('idescene', {
 
 		for (const object of Object.values(this.oldSimbolObjects)) {
 			if (!this.simbolObjects[object.id]) {
-				this.el.removeChild(this.el.querySelector(`#${object.id}`));
+				this.el.removeChild(this.el.querySelector(`#${object.wrapperId}`));
 			}
 		}
 
 		for (const object of Object.values(this.simbolObjects)) {
 			if (!this.oldSimbolObjects[object.id]) {
-				const element = document.createElement(object.primitive);
-				for (const attr of object.attributes) {
-					if (attr && attr.name) {
-						element.setAttribute(attr.name, attr.value);
-					}
-				}
-				element.id = object.id;
-				console.log(element)
-				this.el.appendChild(element);
-			} else if (!this.el.querySelector(`#${object.id}`)) {
-				console.log('delete', object)
+				var wrapper = document.createElement('a-entity');
+				wrapper.setAttribute('id', 'entity' + toDelete);
+				object.wrapperId = wrapper.id;
+				wrapper.setAttribute('simbol-selectable', '');
+				wrapper.setAttribute('show-object-code', '');
+				wrapper.innerHTML = object.value;
+				this.el.appendChild(wrapper);
+				toDelete++;
+			} else if (!this.el.querySelector(`#${object.wrapperId}`)) {
 				delete this.simbolObjects[object.id];
 			}
 		}
@@ -76,9 +72,8 @@ AFRAME.registerComponent('show-object-code', {
         
         el.addEventListener('Simbol.selected', function () {
             personalDisplay.setAttribute('visible', 'true');
-            var myOuterHTML = el.outerHTML;
-            console.log(myOuterHTML);
-            var value = myOuterHTML.split('" ').join('"\n');
+            var myInnerHTML = el.innerHTML;
+            var value = myInnerHTML.split('" ').join('"\n');
             personalDisplay.setAttribute('text', 'value', value);
             personalDisplay.setAttribute('simbol-selectable', '');
 		});
@@ -134,29 +129,6 @@ AFRAME.registerComponent('follow', {
 
 var toDelete = 1;
 
-// THIS COMPONENT CREATES OBJECTS BUT THEY ARE NOT VISIBLE TO OTHER USERS
-// AFRAME.registerComponent('create-entity', {
-// 	init: function () {
-// 		var vrIDE = document.querySelector('#vr-ide');
-//         var scene = document.querySelector('a-scene');
-        
-// 		this.el.addEventListener('Simbol.selected', function () {
-//             var typedCode = vrIDE.components.textarea.textarea.value;
-//             var wrapper = document.createElement('a-entity');
-            
-// 			wrapper.setAttribute('class', 'created');
-//             wrapper.setAttribute('id', 'entity' + toDelete);
-//             wrapper.setAttribute('simbol-selectable', '');
-//             wrapper.setAttribute('show-object-code', '');
-//             wrapper.innerHTML = typedCode;
-// 			scene.appendChild(wrapper);
-//             vrIDE.components.textarea.textarea.value = '';
-//             toDelete++;
-//             console.log(toDelete);
-// 		});
-// 	}
-// });
-
 // THIS COMPONENT DOES NOT CREATE OBJECTS BUT THE TYPED CODE IS VISIBLE TO OTHER USERS
 AFRAME.registerComponent('create-entity', {
 	init: function () {
@@ -168,7 +140,6 @@ AFRAME.registerComponent('create-entity', {
 			if (typedCode.trim().startsWith('<a-')) {		
 				this.objectsWrapper = document.querySelector('[idescene]');
 				this.objectsWrapper.emit('createEntity', generateEntity(typedCode), false);
-				toDelete++;
 			} else {
 				const script = document.createElement('script');
 				script.text = typedCode;
@@ -193,18 +164,11 @@ function generateEntity(value) {
 			value: attr.value
 		}
 	});
-	attributes.push({
-		name: 'simbol-selectable',
-		value: ''
-	});
-	attributes.push({
-		name: 'show-object-code',
-		value: ''
-	});
 	return {
-		id: 'entity' + toDelete,
+		id: element.id,
 		primitive: element.tagName,
-		value: element.innerHTML,
+		value,
+		innerHTML: element.innerHTML,
 		attributes
 	};
 }

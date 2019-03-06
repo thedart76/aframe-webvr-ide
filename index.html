@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>A-Frame VR IDE VR-MODE v1-3</title>
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/gh/wearesimbol/a-simbol@v1.6.0/build/a-simbol.js"></script>
-    <!-- <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script> -->
-	<script src="js/aframe-webvr-ide-v1-3-05.js"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+<!--   <script src="https://cdn.jsdelivr.net/gh/wearesimbol/a-simbol@v1.6.0/build/a-simbol.js"></script>-->
+     <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script> 
+	<script src="js/aframe-webvr-ide-v1-3-07.js"></script>
 </head>
 
 <body>
@@ -14,19 +14,6 @@
             <img id="floor" src="assets/Simbol-WebVR-Ground-Grid.png">
             <img id="simbol" src="assets/simbol.png">
 		</a-assets>
-        
-		
-		<!-- **************** EXAMPLE ****************
-		1) Click on the grey textarea in the scene and type some code.
-    	 For example:
-    	 <a-box color="#FFAA00" position="1 2 -3"></a-box>
-
-    	2) Click on the CREATE button to create the entity
-
-		3) Type #yellow
-
-		4) Click on the DELETE button to delete the entity
-    	********************************************** -->
 		
         <!-- SECOND DISPLAY -->
         <a-entity id="second-display" show-code
@@ -77,19 +64,11 @@
                   interactions="{'selection': {'distance': 30}}">
         </a-simbol>
         
-        <a-entity id="personal-display" visible="false" simbol-selectable
+        <a-entity id="personal-display" visible="false"
                   text="z-offset: 0.03; baseline: center; width: 1.5; wrap-count: 50"
                   geometry="primitive: plane; width: 1.6; height: 0.8"
                   material="color: #000000; opacity: 0.5; shader: flat">
         </a-entity>
-        
-<!--
-        <a-entity position="0 0 9">
-            <a-camera>
-                <a-cursor></a-cursor>
-            </a-camera>
-        </a-entity>
--->
 
 		<!-- ROOF -->
         <a-plane material="color: #072030; shader: flat"

@@ -42,17 +42,17 @@ Let's see what the future brings!
 
 	<head>
 	    <title>A-Frame VR IDE</title>
-	    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+	    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
 	    <!-- Install Simbol for multi-user WebVR experiences -->
 	    <script src="https://cdn.rawgit.com/wearesimbol/a-simbol/master/build/a-simbol.js"></script>
-	    <script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide-v2.0.js"></script>
+	    <script src="https://raw.githack.com/thedart76/aframe-webvr-ide/master/js/aframe-webvr-ide-v1-3-07.js"></script>
 	</head>
 	
 ------------
 
 👀 **[VIEW THE DEMO SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/index.html "VIEW THE DEMO SOURCE CODE")**
 
-👀 **[VIEW THE COMPONENT SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/js/aframe-webvr-ide-v1-3-05.js "VIEW THE COMPONENT SOURCE CODE")**
+👀 **[VIEW THE COMPONENT SOURCE CODE](https://github.com/thedart76/aframe-webvr-ide/blob/master/js/aframe-webvr-ide-v1-3-07.js "VIEW THE COMPONENT SOURCE CODE")**
 
 ------------
 

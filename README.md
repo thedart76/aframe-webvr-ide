@@ -39,7 +39,7 @@ Version 0.1.3 includes a big secondary display in the scene and personal display
 
 🖥 [TRY THE DEMO](https://thedart76.github.io/aframe-webvr-ide/ "TRY THE DEMO")
 
-📺 [**WATCH THE VIDEO**](https:// "WATCH THE VIDEO")
+📺 [**WATCH THE VIDEO**](https://thewebvrlab.io/index.php/projects/30-webvr-ide "WATCH THE VIDEO")
 
 ------------
 

@@ -67,8 +67,8 @@ Version 0.1.3 includes a big secondary display in the scene and personal display
 
 ------------
 
-## Previous Versions
+## License
 
-### v1.0
+Distributed under an [MIT License](https://github.com/thedart76/aframe-webvr-ide/blob/master/LICENSE "MIT License").
 
-[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-demo.gif)
+Designed an coded by [Danilo Pasquariello](https://twitter.com/theDart76 "Danilo Pasquariello") and [Alberto Elias](https://twitter.com/aeliasnet "Alberto Elias").

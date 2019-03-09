@@ -43,10 +43,6 @@ Version 0.1.3 includes a big secondary display in the scene and personal display
 
 ------------
 
-⚠ Please bear in mind that the code for this project is still currently WIP.
-
-------------
-
 ## Usage
 
 ### Browser Installation

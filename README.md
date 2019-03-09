@@ -1,34 +1,45 @@
 # aframe-webvr-ide
 A social WebVR experience using Simbol to introduce your friends to basic WebVR concepts and features.
 
-[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-v2.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/aframe-webvr-ide-v2.gif)
+[![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/webvr-ide.png)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/webvr-ide.png)
 
 ## Introduction
-When I discovered the A-[Frame textarea component](https://github.com/brianpeiris/aframe-textarea-component "Frame textarea component") created by [Brian Peiris](https://github.com/brianpeiris "Brian Peiris") a few months ago, I thought: “It would be cool to use it as a starting point to create kind of WebVR IDE!”.
 
-At the same time, that idea didn't sound so cool to me, because the current VR text entry methods do not offer an enjoyable experience yet.
+### Info
 
-So better avoid long sessions of typing and inputting text in VR.
+❓ MVP created to promote [Simbol](https://github.com/wearesimbol "Simbol"), a social API for VR on the Web. This WebVR experience was designed and coded to introduce people to basic WebVR concepts and features.
 
-Then, a couple of weeks ago, I was contacted by [Alberto Elias](https://github.com/AlbertoElias "Alberto Elias") via Twitter, and he introduced me to his project, [Simbol](https://github.com/wearesimbol "Simbol"), which allows you to build social WebVR experiences in seconds.
-
-That same idea came back to my mind again, but this time it made more sense because I was thinking of it under a different vest: "What about creating a WebVR IDE that one user can use inside an A-Frame scene to quickly show other users how to create WebVR content such as basic primitives, animations, and interactions?".
-
-This is the question I asked Alberto during our online chat on Appear, and this is how our collaboration started that day.
-
-The goal of our WebVR IDE project is to build a social VR experience that is kind of a “The Matrix Stockroom", that is an empty virtual environment where you can use an IDE to type small chunks of code and create objects inside an A-Frame scene... while being there!
+The design concept behind this project was to build kind of a The Matrix Stockroom, where the users joining the session can enter VR mode, talk to each other, and see both the code being typed on the WebVR IDE by a more experienced user and the objects being spawned in the A-Frame scene.
 
 [![](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/webvr-ide.gif)](https://raw.githubusercontent.com/thedart76/aframe-webvr-ide/master/webvr-ide.gif)
 
-Moreover, it doesn't even matter if typing and inputting text in VR is not the most enjoyable experience yet, because A-Frame, that is a WebVR framework for THREE.js, also allows you to work on your scenes in Desktop mode, so you don’t necessarily need to wear a headset and enter VR mode.
+------------
 
-To us, it sounds like a cool way for early adopters or even more experienced users to introduce their friends to basic WebVR concepts and features.
+### Updates
 
-Let's see what the future brings!
+The current version 0.1.3 includes a big secondary display in the scene and personal displays for each user joining the session.
+
+------------
+
+### How Did It All Start?
+
+When back in 2017 I discovered the A-[Frame textarea component](https://github.com/brianpeiris/aframe-textarea-component "Frame textarea component") created by [Brian Peiris](https://github.com/brianpeiris "Brian Peiris"), I thought: “I would be cool to use it as a starting point to create kind of WebVR IDE!”.
+
+At the same time, that idea didn't sound exciting to me, because none of the current VR text entry methods can offer an enjoyable experience yet. So better avoid long sessions of typing and inputting text in VR.
+
+Then, in October 2018, I was contacted by [Alberto Elias](https://github.com/AlbertoElias "Alberto Elias") via Twitter, and he introduced me to his project called Simbol, which allows you to build social WebVR experiences in seconds.
+
+So that same idea came back to my mind again, but this time it made much more sense because I was thinking of it under a different vest: "What about creating a WebVR IDE to introduce OTHER people to basic WebVR concepts and features while being inside an A-Frame scene?"
+
+The hassle of typing and inputting text in VR wouldn't matter anymore, indeed, because A-Frame also works in Desktop mode; therefore you don’t necessarily need to wear a headset and enter VR mode and, most importantly, you can type the code in the WebVR IDE using a physical keyboard.
+
+This is what I said to Alberto during our first online chat on Appear, and this is how our collaboration started that day.
 
 ------------
 
 🖥 [TRY THE DEMO](https://thedart76.github.io/aframe-webvr-ide/ "TRY THE DEMO")
+
+📺 [**WATCH THE VIDEO**](https:// "WATCH THE VIDEO")
 
 ------------
 

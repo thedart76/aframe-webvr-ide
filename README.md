@@ -15,12 +15,6 @@ The design concept behind this project was to build kind of a The Matrix Stockro
 
 ------------
 
-### Updates
-
-The current version 0.1.3 includes a big secondary display in the scene and personal displays for each user joining the session.
-
-------------
-
 ### How Did It All Start?
 
 When back in 2017 I discovered the A-[Frame textarea component](https://github.com/brianpeiris/aframe-textarea-component "Frame textarea component") created by [Brian Peiris](https://github.com/brianpeiris "Brian Peiris"), I thought: “I would be cool to use it as a starting point to create kind of WebVR IDE!”.
@@ -34,6 +28,12 @@ So that same idea came back to my mind again, but this time it made much more se
 The hassle of typing and inputting text in VR wouldn't matter anymore, indeed, because A-Frame also works in Desktop mode; therefore you don’t necessarily need to wear a headset and enter VR mode and, most importantly, you can type the code in the WebVR IDE using a physical keyboard.
 
 This is what I said to Alberto during our first online chat on Appear, and this is how our collaboration started that day.
+
+------------
+
+### Updates
+
+Version 0.1.3 includes a big secondary display in the scene and personal displays for each user joining the session.
 
 ------------
 
